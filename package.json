@@ -1,0 +1,32 @@
+{
+  "name": "brand-backend",
+  "version": "1.0.0",
+  "description": "content soon...",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon --exec babel-node server.js",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blackd44/My-Brand-Backend-Benn-Dalton.git"
+  },
+  "author": "blackd44",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/blackd44/My-Brand-Backend-Benn-Dalton/issues"
+  },
+  "homepage": "https://github.com/blackd44/My-Brand-Backend-Benn-Dalton#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongoose": "^6.8.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.12",
+    "@babel/node": "^7.20.7",
+    "@babel/preset-env": "^7.20.2"
+  }
+}
