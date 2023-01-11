@@ -21,13 +21,17 @@ app.use((req, res) => {
 // starting the server
 const PORT = process.env.SERVER_PORT || 4000
 
-const BDURL = process.env.DB_URL_LOCAL
+const BDURL = process.env.DB_URL
 
-mongoose.connect(BDURL, () => {
-    console.log('\nDatabase connected ...')
-    app.listen(PORT, () => {
-        console.log(`listening to port`, PORT)
-    })
+mongoose.connect(BDURL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
 },
+    () => {
+        console.log('\nDatabase connected ...')
+        app.listen(PORT, () => {
+            console.log(`listening to port`, PORT)
+        })
+    },
     e => console.error(e)
 )
