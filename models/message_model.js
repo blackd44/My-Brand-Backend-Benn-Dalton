@@ -5,6 +5,6 @@ const messageSchema = new Schema({
     content: String
 }, { timestamps: true })
 
-const Message = model('blog', messageSchema)
+const Message = model('message', messageSchema)
 
 export default Message
