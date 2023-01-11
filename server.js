@@ -3,11 +3,14 @@ import express from "express"
 import routes from "./routes/index"
 import cors from "cors"
 import mongoose from 'mongoose'
+import morgan from 'morgan'
 
 const app = express()
 
 // middlewares
+app.use(express.json())
 app.use(cors())
+app.use(morgan('dev'))
 
 // routes
 app.use('/api', routes)
@@ -18,11 +21,13 @@ app.use((req, res) => {
 // starting the server
 const PORT = process.env.SERVER_PORT || 4000
 
-const BDURL = process.env.DB_URL
+const BDURL = process.env.DB_URL_LOCAL
 
 mongoose.connect(BDURL, () => {
-    console.log("DataBase Connected successfully");
+    console.log('\nDatabase connected ...')
     app.listen(PORT, () => {
-        console.log("Listening at port", PORT)
+        console.log(`listening to port`, PORT)
     })
-}, e => console.log(e))
+},
+    e => console.error(e)
+)
