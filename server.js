@@ -2,6 +2,7 @@ import { } from 'dotenv/config'
 import express from "express"
 import routes from "./routes/index"
 import cors from "cors"
+import mongoose from 'mongoose'
 
 const app = express()
 
@@ -15,7 +16,13 @@ app.use((req, res) => {
 })
 
 // starting the server
-const Port = process.env.SERVER_PORT || 4000
-app.listen(Port, () => {
-    console.log("Listening at port", Port)
-})
+const PORT = process.env.SERVER_PORT || 4000
+
+const BDURL = process.env.DB_URL
+
+mongoose.connect(BDURL, () => {
+    console.log("DataBase Connected successfully");
+    app.listen(PORT, () => {
+        console.log("Listening at port", PORT)
+    })
+}, e => console.log(e))
