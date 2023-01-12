@@ -33,4 +33,13 @@ export default class MessageServices {
             console.log(e)
         }
     }
+    static async deleteOne(id) {
+        try {
+            let one = await Message.findByIdAndDelete(Object(id))
+            return one
+        }
+        catch (e) {
+            console.log(e)
+        }
+    }
 }

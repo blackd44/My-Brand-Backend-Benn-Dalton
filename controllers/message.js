@@ -44,4 +44,18 @@ export default class Messages {
             res.status(500).json({ data: e.message })
         }
     }
+
+    static async deleteMessage(req, res) {
+        try {
+            let message = await MessageServices.deleteOne(req.params.id)
+            if (message == null)
+                res.status(204).json({ data: 'no content found' })
+            else
+                res.status(200).json({ deleted: message })
+        }
+        catch (e) {
+            console.log(e)
+            res.status(500).json({ data: e.message })
+        }
+    }
 }
