@@ -33,7 +33,10 @@ export default class Messages {
         try {
             const { email, content } = req.body
 
-            let baby = await MessageServices.sendMessage({ email, content })
+            let { error, baby } = await MessageServices.sendMessage({ email, content })
+            if (error)
+                res.status(422).json({ message: error.message, error })
+
             res.status(200).json(baby)
         }
         catch (e) {

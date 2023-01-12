@@ -1,4 +1,5 @@
 import { Schema, model } from "mongoose";
+import validate from "../validations/message_validator";
 
 const messageSchema = new Schema({
     email: {
@@ -13,4 +14,4 @@ const messageSchema = new Schema({
 
 const Message = model('message', messageSchema)
 
-export default Message
+export { Message, validate }

@@ -1,10 +1,14 @@
-import Message from "../models/message_model";
+import { Message, validate as Validate_Message } from "../models/message_model";
 
 export default class MessageServices {
     static async sendMessage(data) {
         try {
+            const { error } = await Validate_Message(data)
+            if (error)
+                return { error }
+
             let baby = await Message.create(data)
-            return baby
+            return { baby }
         }
         catch (e) {
             console.log(e)
