@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import validate from "../validations/message_validator";
+import validate from "../validations/message_validator.js";
 
 const messageSchema = new Schema({
     email: {

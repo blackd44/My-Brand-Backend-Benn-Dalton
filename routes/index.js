@@ -1,5 +1,5 @@
 import { Router } from "express"
-import messages from "./api/message_route"
+import messages from "./api/message_route.js"
 
 const routes = Router()
 
