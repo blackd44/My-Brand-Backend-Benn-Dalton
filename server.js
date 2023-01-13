@@ -1,11 +1,18 @@
 import { } from 'dotenv/config'
 import express from "express"
-import routes from "./routes/index"
+import routes from "./routes/index.js"
 import cors from "cors"
 import mongoose from 'mongoose'
 import morgan from 'morgan'
+import url from "url"
+import { join } from 'path'
 
 const app = express()
+const __dirname = url.fileURLToPath(new url.URL('.', import.meta.url))
+
+app.set("view engine", "ejs")
+app.set("views", join(__dirname, "views"))
+app.use(express.static(join(__dirname, "public")))
 
 // middlewares
 app.use(express.json())
