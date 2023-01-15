@@ -59,6 +59,9 @@ export default class MessageServices {
                     return { updated: son }
                 }
             }
+            else {
+                return { updated: null }
+            }
         }
         catch (e) {
             console.log(e)
