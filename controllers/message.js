@@ -37,7 +37,7 @@ export default class Messages {
             if (error)
                 res.status(422).json({ error: error.message })
 
-            res.status(200).json(baby)
+            res.status(201).json(baby)
         }
         catch (e) {
             console.log(e)
@@ -51,7 +51,7 @@ export default class Messages {
             if (message == null)
                 res.status(204).json({ error: 'no content found' })
             else
-                res.status(200).json({ deleted: message })
+                res.status(202).json({ deleted: message })
         }
         catch (e) {
             console.log(e)

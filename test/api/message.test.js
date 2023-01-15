@@ -23,7 +23,7 @@ describe('\ntesting messages routes', () => {
                 email: "name@email.com",
                 content: "This is testing"
             })
-            expect(res.statusCode).toBe(200)
+            expect(res.statusCode).toBe(201)
             expect(typeof res.body).toBe('object')
             expect(res.body).toHaveProperty('email', "name@email.com")
             expect(res.body).toHaveProperty('content', "This is testing")
@@ -85,7 +85,7 @@ describe('\ntesting messages routes', () => {
     describe('DELETE api/messages/:id', () => {
         test('should return the deleted message', async () => {
             const res = await request(app).delete('/api/messages/' + test_id)
-            expect(res.statusCode).toBe(200)
+            expect(res.statusCode).toBe(202)
             expect(typeof res.body).toBe('object')
             expect(res.body).toHaveProperty('deleted')
             expect(typeof res.body.deleted).toBe('object')
