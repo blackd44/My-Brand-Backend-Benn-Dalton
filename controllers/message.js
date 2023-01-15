@@ -62,7 +62,6 @@ export default class Messages {
     static async updateMessage(req, res) {
         try {
             let { updated, error } = await MessageServices.updateOne(req.params.id, req.body)
-            console.log(updated)
             if (updated == null)
                 res.status(204).json({ error: 'no content found' })
             else {
