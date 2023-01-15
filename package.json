@@ -5,9 +5,13 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "test": "mocha test/index.spec.js",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --env=node --coverage --testTimeout=10000",
     "dev": "nodemon server.js",
     "start": "node server.js"
+  },
+  "jest": {
+    "transform": {},
+    "testEnvironment": "jest-environment-jsdom-sixteen"
   },
   "repository": {
     "type": "git",
@@ -28,6 +32,8 @@
   },
   "devDependencies": {
     "jest": "^29.3.1",
+    "jest-environment-jsdom-sixteen": "^2.0.0",
+    "jest-environment-node": "^29.3.1",
     "morgan": "^1.10.0",
     "supertest": "^6.3.3"
   }
