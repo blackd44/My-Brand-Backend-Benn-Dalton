@@ -14,13 +14,14 @@ jobs:
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
     steps:
       - checkout
+      - run: npm install
       - run:
-          name: "Say hello"
-          command: "echo Hello, World!"
+          name: "start testing"
+          command: "node --experimental-vm-modules node_modules/jest/bin/jest.js --env=node"
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
-  say-hello-workflow:
+  jest-test-workflow:
     jobs:
-      - say-hello
+      - test with jest
