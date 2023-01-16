@@ -16,16 +16,18 @@ jobs:
       - checkout
 
       - restore_cache:
-          key:
-          - &deps1-cache deps1-{{ checksum "package.json" }}
-          - &deps1-cache
+          keys:
+            # when lock file changes, use increasingly general patterns to restore cache
+            - node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
+            - node-v1-{{ .Branch }}-
+            - node-v1-
 
       - run: npm install
 
       - save_cache:
           path: 
           - node_modules
-          key: *deps1-cache
+          key: node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
 
       - run:
           name: "start testing"
