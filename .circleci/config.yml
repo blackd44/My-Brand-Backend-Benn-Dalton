@@ -14,7 +14,18 @@ jobs:
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
     steps:
       - checkout
+      - restore_cashe:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          - v1-dependencies-
+
       - run: npm install
+
+      - save_cashe:
+          path: 
+          - node_modules
+          keys: v1-dependencies-{{ checksum "package.json" }}
+
       - run:
           name: "start testing"
           command: "node --experimental-vm-modules node_modules/jest/bin/jest.js --env=node"
