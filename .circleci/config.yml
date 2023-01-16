@@ -15,7 +15,8 @@ jobs:
     steps:
       - checkout
 
-      - &restore_cashe:
+      - restore_cashe:
+          name: Restore npm Package Cache
           keys:
           - v1-dependencies-{{ checksum "package.json" }}
           - v1-dependencies-
@@ -23,6 +24,7 @@ jobs:
       - run: npm install
 
       - save_cashe:
+          name: save npm Package Cache
           path: 
           - node_modules
           keys: v1-dependencies-{{ checksum "package.json" }}
