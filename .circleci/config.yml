@@ -16,7 +16,7 @@ jobs:
       - checkout
 
       - restore_cache:
-          keys:
+          key:
             # when lock file changes, use increasingly general patterns to restore cache
             - node-v1-{{ checksum "package-lock.json" }}
             - node-v1-
