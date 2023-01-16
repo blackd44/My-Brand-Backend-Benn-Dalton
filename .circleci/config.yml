@@ -16,16 +16,18 @@ jobs:
       - checkout
 
       - restore_cache:
-          keys:
+          name: Restore npm Package Cache
+          key:
           - v1-dependencies-{{ checksum "package.json" }}
           - v1-dependencies-
 
       - run: npm install
 
       - save_cache:
+          name: save npm Package Cache
           path: 
           - node_modules
-          keys: v1-dependencies-{{ checksum "package.json" }}
+          key: v1-dependencies-{{ checksum "package.json" }}
 
       - run:
           name: "start testing"
