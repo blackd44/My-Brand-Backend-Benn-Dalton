@@ -1,26 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1673778561477" clover="3.2.0">
-  <project timestamp="1673778561477" name="All files">
-    <metrics statements="96" coveredstatements="78" conditionals="18" coveredconditionals="15" methods="15" coveredmethods="13" elements="129" coveredelements="106" complexity="0" loc="96" ncloc="96" packages="7" files="7" classes="7"/>
+<coverage generated="1673824484992" clover="3.2.0">
+  <project timestamp="1673824484993" name="All files">
+    <metrics statements="100" coveredstatements="82" conditionals="18" coveredconditionals="15" methods="15" coveredmethods="13" elements="133" coveredelements="110" complexity="0" loc="100" ncloc="100" packages="7" files="7" classes="7"/>
     <package name="My-Brand-Backend-Benn-Dalton">
-      <metrics statements="15" coveredstatements="14" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="2"/>
+      <metrics statements="19" coveredstatements="18" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="2"/>
       <file name="app.js" path="C:\Users\User\Documents\bd44\andela\My-Brand-Backend-Benn-Dalton\app.js">
-        <metrics statements="15" coveredstatements="14" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="2"/>
-        <line num="10" count="2" type="stmt"/>
-        <line num="11" count="2" type="stmt"/>
+        <metrics statements="19" coveredstatements="18" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="2"/>
+        <line num="12" count="2" type="stmt"/>
         <line num="13" count="2" type="stmt"/>
-        <line num="14" count="2" type="stmt"/>
         <line num="15" count="2" type="stmt"/>
-        <line num="18" count="2" type="stmt"/>
-        <line num="19" count="2" type="stmt"/>
+        <line num="16" count="2" type="stmt"/>
+        <line num="17" count="2" type="stmt"/>
         <line num="20" count="2" type="stmt"/>
-        <line num="23" count="2" type="stmt"/>
-        <line num="24" count="2" type="stmt"/>
+        <line num="21" count="2" type="stmt"/>
+        <line num="22" count="2" type="stmt"/>
         <line num="25" count="2" type="stmt"/>
-        <line num="29" count="2" type="stmt"/>
-        <line num="35" count="2" type="stmt"/>
-        <line num="36" count="2" type="stmt"/>
-        <line num="37" count="0" type="stmt"/>
+        <line num="32" count="2" type="stmt"/>
+        <line num="50" count="2" type="stmt"/>
+        <line num="51" count="2" type="stmt"/>
+        <line num="55" count="2" type="stmt"/>
+        <line num="56" count="2" type="stmt"/>
+        <line num="57" count="2" type="stmt"/>
+        <line num="61" count="2" type="stmt"/>
+        <line num="67" count="2" type="stmt"/>
+        <line num="68" count="2" type="stmt"/>
+        <line num="69" count="0" type="stmt"/>
       </file>
     </package>
     <package name="My-Brand-Backend-Benn-Dalton.controllers">
