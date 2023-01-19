@@ -77,6 +77,15 @@ describe('\ntesting users routes', () => {
             expect(res.statusCode).toBe(401)
             expect(typeof res.body).toBe('object')
         })
+
+        test('should return 500 for invalid token', async () => {
+            let invalid = '' + token
+            invalid = invalid.substring(0, invalid.length - 2)
+            const res = await request(app).get('/api/users/user').set({
+                Authorization: 'Bearer ' + invalid
+            })
+            expect(res.statusCode).toBe(500)
+        })
     })
 
     describe('DELETE api/users/user', () => {
