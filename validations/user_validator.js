@@ -2,7 +2,7 @@ import Joi from "joi";
 import { joiPasswordExtendCore } from "joi-password";
 const JoiPassword = Joi.extend(joiPasswordExtendCore)
 
-const validate_user = data => {
+const validate_user = async data => {
     const Schema = Joi.object({
         username: Joi
             .string()
@@ -27,7 +27,7 @@ const validate_user = data => {
             .label("password"),
     })
 
-    return Schema.validate(data, {
+    return await Schema.validate(data, {
         abortEarly: false
     })
 }
