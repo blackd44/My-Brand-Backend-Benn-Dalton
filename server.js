@@ -7,9 +7,9 @@ const PORT = process.env.SERVER_PORT || 4000
 let first = true
 while (first) {
     if (app !== undefined) {
+        first = false
         app.listen(PORT, () => {
             console.log(`listening to port`, PORT)
-            first = false
         })
     }
 }
