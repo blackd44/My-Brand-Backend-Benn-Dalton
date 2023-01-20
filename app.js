@@ -31,9 +31,7 @@ app.use((req, res) => {
 })
 
 // starting the database
-const BDURL = process.env.DB_URL
-
-export default await mongoose.connect(BDURL, {
+export default await mongoose.connect(process.env.DB_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 }).then(() => {
