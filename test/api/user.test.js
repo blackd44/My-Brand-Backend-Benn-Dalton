@@ -104,7 +104,7 @@ describe('\ntesting users routes', () => {
     })
 
     describe('DELETE api/users/:email', () => {
-        let delToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJlbm41IiwiaWF0IjoxNjc0MzkwMjM1fQ.-AFnZOmZ1vROhpe_9adMX6QwhpCCMzLQyMVzmnWM9eU'
+        let delToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJlbm41IiwiaWF0IjoxNjc0NDE5NTkyfQ.1Dclm-BK_lFnijL-0-fD9VJTnEFLf9a7iQpj9N6jvVg'
 
         test('should return the deleted user', async () => {
             await request(app).post('/api/users/signup').send({
