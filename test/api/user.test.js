@@ -144,7 +144,6 @@ describe('\ntesting users routes', () => {
             }).send({
                 password: "123@Pass2"
             })
-            console.log(res.body)
             expect(res.statusCode).toBe(202)
             expect(typeof res.body).toBe('object')
         })
@@ -197,6 +196,7 @@ describe('\ntesting users routes', () => {
             }).send({
                 profile: "https://images.unsplash.com/photo-1628155930542-3c7a64e2c833?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80secondemail@email.com"
             })
+            console.log(req.body)
             expect(res.statusCode).toBe(400)
             expect(typeof res.body).toBe('object')
         })
