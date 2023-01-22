@@ -93,7 +93,7 @@ export default class UserServices {
                 return { error }
             else {
                 check.save()
-                return { user: check }
+                return { user: check, error: undefined }
             }
         }
         catch (e) {
