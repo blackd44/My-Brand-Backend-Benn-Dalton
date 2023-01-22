@@ -104,16 +104,31 @@ describe('\ntesting users routes', () => {
     })
 
     describe('DELETE api/users/:email', () => {
-        let delToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJlbm41IiwiaWF0IjoxNjc0NDE5NTkyfQ.1Dclm-BK_lFnijL-0-fD9VJTnEFLf9a7iQpj9N6jvVg'
-        let email = ''
-        test('should return the deleted user', async () => {
-            await request(app).post('/api/users/signup').send({
-                username: "deletetest",
-                email: "deletetest@email.com",
+        let delToken = undefined
+        let email = undefined
+
+        test('should return the token of user who logged account', async () => {
+            const res = await request(app).post('/api/users/login').send({
+                email: "test3@email.com",
                 password: "123@Pass2"
             })
-            email += "deletetest@email.com"
+            expect(res.statusCode).toBe(200)
+            expect(typeof res.body).toBe('object')
+            delToken = res.body.token
+        })
 
+        test('should return the token of user who created account', async () => {
+            const res = await request(app).post('/api/users/signup').send({
+                email: "test@email.com",
+                username: "username",
+                password: "Benn@123"
+            })
+            email = 'test@email.com'
+            expect(res.statusCode).toBe(200)
+            expect(typeof res.body).toBe('object')
+        })
+
+        test('should return the deleted user', async () => {
             const res = await request(app).delete('/api/users/' + email).set({
                 Authorization: 'Bearer ' + delToken
             }).send({
@@ -129,6 +144,7 @@ describe('\ntesting users routes', () => {
             }).send({
                 password: "123@Pass2"
             })
+            console.log(res.body)
             expect(res.statusCode).toBe(202)
             expect(typeof res.body).toBe('object')
         })
