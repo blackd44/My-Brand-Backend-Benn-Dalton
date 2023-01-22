@@ -13,7 +13,11 @@ const userSchema = new Schema({
         unique: true,
         require: true,
     },
-    password: String
+    password: {
+        type: String,
+        require: true,
+    },
+    profile: String
 }, { timestamps: true })
 
 const User = model('user', userSchema)

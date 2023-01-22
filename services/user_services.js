@@ -8,11 +8,8 @@ export default class UserServices {
                 return await { error: { message: "bad request" } }
             else {
                 const check = await User.findOne({ email: email })
-                if (check == null)
-                    return { info: { message: "user not found" } }
-
-                else if (check.password != password)
-                    return { info: { message: "user not found" } }
+                if (check == null || check.password != password)
+                    return { info: { message: "email or password is incorrect" } }
                 else
                     return { baby: check }
             }
@@ -44,6 +41,19 @@ export default class UserServices {
         }
     }
 
+    static async getSingleUser(email) {
+        try {
+            const check = await User.findOne({ email: email })
+            if (check == null)
+                return { error: { message: "user not found" } }
+
+            return { user: check }
+        }
+        catch (e) {
+            console.log(e)
+        }
+    }
+
     static async getUser(data) {
         try {
             const { username } = data
@@ -53,6 +63,38 @@ export default class UserServices {
                 return { error: { message: "user not found" } }
 
             return { user: check }
+        }
+        catch (e) {
+            console.log(e)
+        }
+    }
+
+    static async updateUser(user, data) {
+        try {
+            const { username } = user
+            if (data.username && data.username != username) {
+                const user = await User.findOne({ username: data.username })
+                if (user != null)
+                    return { error: { message: "username already exist" } }
+            }
+
+            const check = await User.findOne({ username: username })
+            if (check == null)
+                return { error: { message: "user not found" } }
+
+            for (let key in data) {
+                if (["_id", "email", "createdAt"].includes(key) && data[key] != check[key]) {
+                    return { error: { message: `${key} can't be changed` } }
+                }
+                else check[key] = data[key]
+            }
+            const { error } = await Validate_User({ email: check.email, username: check.username, password: check.password })
+            if (error)
+                return { error }
+            else {
+                check.save()
+                return { user: check }
+            }
         }
         catch (e) {
             console.log(e)
@@ -78,6 +120,39 @@ export default class UserServices {
                 return { info: { message: "not authorized" } }
 
             const deleted = await User.findByIdAndDelete(check._id)
+            return { deleted }
+        }
+        catch (e) {
+            console.log(e)
+            return { error: e }
+        }
+    }
+
+    static async deleteUserByEmail(data) {
+        try {
+            const { user, body, params } = data
+            const { username } = user
+
+            if (!username)
+                return { info: { message: "not authorized" } }
+
+            if (!body.password)
+                return { error: { message: "password is required" } }
+            const { password } = body
+
+
+            const check = await User.findOne({ username: username })
+            if (check == null)
+                return { error: { message: "user not found" } }
+
+            if (check.password !== password)
+                return { info: { message: "not authorized" } }
+
+            const old = await User.findOne({ email: params.email })
+            if (old == null)
+                return { error: { message: "user not found" } }
+
+            const deleted = await User.findByIdAndDelete(old._id)
             return { deleted }
         }
         catch (e) {
