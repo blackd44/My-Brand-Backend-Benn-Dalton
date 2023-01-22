@@ -105,15 +105,16 @@ describe('\ntesting users routes', () => {
 
     describe('DELETE api/users/:email', () => {
         let delToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJlbm41IiwiaWF0IjoxNjc0NDE5NTkyfQ.1Dclm-BK_lFnijL-0-fD9VJTnEFLf9a7iQpj9N6jvVg'
-
+        let email = ''
         test('should return the deleted user', async () => {
             await request(app).post('/api/users/signup').send({
                 username: "deletetest",
                 email: "deletetest@email.com",
                 password: "123@Pass2"
             })
+            email += "deletetest@email.com"
 
-            const res = await request(app).delete('/api/users/deletetest@email.com').set({
+            const res = await request(app).delete('/api/users/' + email).set({
                 Authorization: 'Bearer ' + delToken
             }).send({
                 password: "123@Pass"
@@ -123,7 +124,7 @@ describe('\ntesting users routes', () => {
         })
 
         test('should return the deleted user', async () => {
-            const res = await request(app).delete('/api/users/deletetest@email.com').set({
+            const res = await request(app).delete('/api/users/' + email).set({
                 Authorization: 'Bearer ' + delToken
             }).send({
                 password: "123@Pass2"
@@ -133,7 +134,7 @@ describe('\ntesting users routes', () => {
         })
 
         test('should return the deleted user', async () => {
-            const res = await request(app).delete('/api/users/deletetest@email.com').set({
+            const res = await request(app).delete('/api/users/' + email).set({
                 Authorization: 'Bearer ' + delToken
             }).send({
                 password: "123@Pass2"
