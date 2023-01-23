@@ -30,7 +30,6 @@ app.use((req, res) => {
     res.status(404).json({ message: "Page not Found" })
 })
 
-
 // starting the database
 export default await mongoose.connect(process.env.DB_URL, {
     useNewUrlParser: true,
