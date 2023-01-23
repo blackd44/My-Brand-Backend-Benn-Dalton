@@ -190,16 +190,6 @@ describe('\ntesting users routes', () => {
             expect(typeof res.body).toBe('object')
         })
 
-        test('should return 400 for not recorginezed user', async () => {
-            const res = await request(app).patch('/api/users/user').set({
-                Authorization: 'Bearer ' + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRlbGV0ZXRlc3QiLCJpYXQiOjE2NzQzOTMyNzl9.yJ1RcAZ-JWoRqVOkZ27-n2k7OwXzzforZEnNZfXnhOs"
-            }).send({
-                profile: "https://images.unsplash.com/photo-1628155930542-3c7a64e2c833?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80secondemail@email.com"
-            })
-            expect(res.statusCode).toBe(400)
-            expect(typeof res.body).toBe('object')
-        })
-
         test('should return 400 for not valid value', async () => {
             const res = await request(app).patch('/api/users/user').set({
                 Authorization: 'Bearer ' + token

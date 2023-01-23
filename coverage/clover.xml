@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1674422438630" clover="3.2.0">
-  <project timestamp="1674422438630" name="All files">
-    <metrics statements="272" coveredstatements="229" conditionals="97" coveredconditionals="84" methods="32" coveredmethods="30" elements="401" coveredelements="343" complexity="0" loc="272" ncloc="272" packages="8" files="14" classes="14"/>
+<coverage generated="1674464646742" clover="3.2.0">
+  <project timestamp="1674464646742" name="All files">
+    <metrics statements="272" coveredstatements="228" conditionals="97" coveredconditionals="83" methods="32" coveredmethods="30" elements="401" coveredelements="341" complexity="0" loc="272" ncloc="272" packages="8" files="14" classes="14"/>
     <package name="My-Brand-Backend-Benn-Dalton">
       <metrics statements="17" coveredstatements="16" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="2"/>
       <file name="app.js" path="C:\Users\User\Documents\bd44\andela\My-Brand-Backend-Benn-Dalton\app.js">
@@ -108,11 +108,11 @@
         <line num="66" count="1" type="stmt"/>
         <line num="70" count="1" type="stmt"/>
         <line num="71" count="1" type="stmt"/>
-        <line num="76" count="6" type="stmt"/>
-        <line num="77" count="6" type="stmt"/>
-        <line num="78" count="6" type="stmt"/>
-        <line num="80" count="5" type="cond" truecount="2" falsecount="0"/>
-        <line num="81" count="4" type="stmt"/>
+        <line num="76" count="5" type="stmt"/>
+        <line num="77" count="5" type="stmt"/>
+        <line num="78" count="5" type="stmt"/>
+        <line num="80" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="81" count="3" type="stmt"/>
         <line num="83" count="1" type="stmt"/>
         <line num="84" count="1" type="stmt"/>
         <line num="88" count="1" type="stmt"/>
@@ -137,17 +137,17 @@
       <metrics statements="11" coveredstatements="11" conditionals="11" coveredconditionals="9" methods="2" coveredmethods="2"/>
       <file name="authusertoken.js" path="C:\Users\User\Documents\bd44\andela\My-Brand-Backend-Benn-Dalton\middlewares\authusertoken.js">
         <metrics statements="11" coveredstatements="11" conditionals="11" coveredconditionals="9" methods="2" coveredmethods="2"/>
-        <line num="4" count="16" type="stmt"/>
-        <line num="5" count="16" type="cond" truecount="1" falsecount="1"/>
-        <line num="8" count="16" type="cond" truecount="1" falsecount="1"/>
-        <line num="9" count="16" type="cond" truecount="5" falsecount="0"/>
+        <line num="4" count="15" type="stmt"/>
+        <line num="5" count="15" type="cond" truecount="1" falsecount="1"/>
+        <line num="8" count="15" type="cond" truecount="1" falsecount="1"/>
+        <line num="9" count="15" type="cond" truecount="5" falsecount="0"/>
         <line num="10" count="2" type="stmt"/>
         <line num="11" count="2" type="stmt"/>
-        <line num="14" count="14" type="stmt"/>
-        <line num="15" count="14" type="stmt"/>
-        <line num="16" count="14" type="cond" truecount="2" falsecount="0"/>
-        <line num="17" count="14" type="stmt"/>
-        <line num="18" count="14" type="stmt"/>
+        <line num="14" count="13" type="stmt"/>
+        <line num="15" count="13" type="stmt"/>
+        <line num="16" count="13" type="cond" truecount="2" falsecount="0"/>
+        <line num="17" count="13" type="stmt"/>
+        <line num="18" count="13" type="stmt"/>
       </file>
     </package>
     <package name="My-Brand-Backend-Benn-Dalton.models">
@@ -197,7 +197,7 @@
       </file>
     </package>
     <package name="My-Brand-Backend-Benn-Dalton.services">
-      <metrics statements="119" coveredstatements="99" conditionals="54" coveredconditionals="46" methods="12" coveredmethods="12"/>
+      <metrics statements="119" coveredstatements="98" conditionals="54" coveredconditionals="45" methods="12" coveredmethods="12"/>
       <file name="message_services.js" path="C:\Users\User\Documents\bd44\andela\My-Brand-Backend-Benn-Dalton\services\message_services.js">
         <metrics statements="30" coveredstatements="24" conditionals="6" coveredconditionals="5" methods="5" coveredmethods="5"/>
         <line num="5" count="2" type="stmt"/>
@@ -232,7 +232,7 @@
         <line num="67" count="0" type="stmt"/>
       </file>
       <file name="user_services.js" path="C:\Users\User\Documents\bd44\andela\My-Brand-Backend-Benn-Dalton\services\user_services.js">
-        <metrics statements="89" coveredstatements="75" conditionals="48" coveredconditionals="41" methods="7" coveredmethods="7"/>
+        <metrics statements="89" coveredstatements="74" conditionals="48" coveredconditionals="40" methods="7" coveredmethods="7"/>
         <line num="5" count="4" type="stmt"/>
         <line num="6" count="4" type="stmt"/>
         <line num="7" count="4" type="cond" truecount="4" falsecount="0"/>
@@ -267,15 +267,15 @@
         <line num="63" count="0" type="stmt"/>
         <line num="65" count="1" type="stmt"/>
         <line num="68" count="1" type="stmt"/>
-        <line num="73" count="6" type="stmt"/>
-        <line num="74" count="6" type="stmt"/>
-        <line num="75" count="5" type="cond" truecount="4" falsecount="0"/>
+        <line num="73" count="5" type="stmt"/>
+        <line num="74" count="5" type="stmt"/>
+        <line num="75" count="4" type="cond" truecount="4" falsecount="0"/>
         <line num="76" count="1" type="stmt"/>
         <line num="77" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="78" count="1" type="stmt"/>
-        <line num="81" count="4" type="stmt"/>
-        <line num="82" count="4" type="cond" truecount="2" falsecount="0"/>
-        <line num="83" count="1" type="stmt"/>
+        <line num="81" count="3" type="stmt"/>
+        <line num="82" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="83" count="0" type="stmt"/>
         <line num="85" count="3" type="stmt"/>
         <line num="86" count="3" type="cond" truecount="4" falsecount="0"/>
         <line num="87" count="1" type="stmt"/>
