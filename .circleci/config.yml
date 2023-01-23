@@ -19,4 +19,4 @@ jobs:
 
       - run:
           name: "start testing"
-          command: "node --experimental-vm-modules node_modules/jest/bin/jest.js --env=node"
+          command: "node --experimental-vm-modules node_modules/jest/bin/jest.js --env=node --coverage"
