@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.14% </span>
+                <span class="strong">84.21% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>74/89</span>
+                <span class='fraction'>80/95</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.33% </span>
+                <span class="strong">84.61% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>40/48</span>
+                <span class='fraction'>44/52</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.14% </span>
+                <span class="strong">84.04% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>74/89</span>
+                <span class='fraction'>79/94</span>
             </div>
         
             
@@ -225,7 +225,19 @@
 <a name='L160'></a><a href='#L160'>160</a>
 <a name='L161'></a><a href='#L161'>161</a>
 <a name='L162'></a><a href='#L162'>162</a>
-<a name='L163'></a><a href='#L163'>163</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L163'></a><a href='#L163'>163</a>
+<a name='L164'></a><a href='#L164'>164</a>
+<a name='L165'></a><a href='#L165'>165</a>
+<a name='L166'></a><a href='#L166'>166</a>
+<a name='L167'></a><a href='#L167'>167</a>
+<a name='L168'></a><a href='#L168'>168</a>
+<a name='L169'></a><a href='#L169'>169</a>
+<a name='L170'></a><a href='#L170'>170</a>
+<a name='L171'></a><a href='#L171'>171</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -259,6 +271,9 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
@@ -314,6 +329,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -388,6 +404,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { User, validate as Validate_User } from "../models/user_model.js";
+import bcrypt from "bcrypt"
+&nbsp;
+let saltRounds = parseInt(process.env.SALTROUNDS)
+const salt = bcrypt.genSaltSync(saltRounds);
 &nbsp;
 export default class UserServices {
     static async login(data) {
@@ -397,7 +417,7 @@ export default class UserServices {
                 return await { error: { message: "bad request" } }
             else {
                 const check = await User.findOne({ email: email })
-                if (check == null || check.password != password)
+                if (check == null || !(await bcrypt.compare(password, check.password)))
                     return { info: { message: "email or password is incorrect" } }
                 else
                     return { baby: check }
@@ -413,7 +433,7 @@ export default class UserServices {
         try {
             const { email, username, password } = data
 &nbsp;
-            const { error, value } = await Validate_User({ email, username, password })
+            let { error, value } = await Validate_User({ email, username, password })
             if (error)
                 return { error }
 &nbsp;
@@ -421,6 +441,9 @@ export default class UserServices {
             if (check !== null)
                 return { error: { message: "username exist" } }
 &nbsp;
+            const hash = await bcrypt.hashSync(value.password, salt)
+&nbsp;
+            value.password = hash
             const baby = await User.create(value)
 &nbsp;
             return { error: undefined, baby }
@@ -475,9 +498,10 @@ export default class UserServices {
                 if (["_id", "email", "createdAt"].includes(key) &amp;&amp; data[key] != check[key]) {
                     return { error: { message: `${key} can't be changed` } }
                 }
+                else if (key == 'password') check[key] = await bcrypt.hashSync(data.password, salt)
                 else check[key] = data[key]
             }
-            const { error } = await Validate_User({ email: check.email, username: check.username, password: check.password })
+            const { error } = await Validate_User({ email: check.email, username: check.username, password: (data.password || 'Strong@Pass.123') })
             if (error)
                 return { error }
             else {
@@ -505,7 +529,7 @@ export default class UserServices {
             <span class="missing-if-branch" title="if path not taken" >I</span>if (check == null)
 <span class="cstat-no" title="statement not covered" >                return { error: { message: "user not found" } }</span>
 &nbsp;
-            if (check.password !== password)
+            if (!(await bcrypt.compare(password, check.password)))
                 return { info: { message: "not authorized" } }
 &nbsp;
             const deleted = await User.findByIdAndDelete(check._id)
@@ -534,7 +558,7 @@ export default class UserServices {
             <span class="missing-if-branch" title="if path not taken" >I</span>if (check == null)
 <span class="cstat-no" title="statement not covered" >                return { error: { message: "user not found" } }</span>
 &nbsp;
-            if (check.password !== password)
+            if (!(await bcrypt.compare(password, check.password)))
                 return { info: { message: "not authorized" } }
 &nbsp;
             const old = await User.findOne({ email: params.email })
@@ -556,7 +580,7 @@ export default class UserServices {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-01-23T09:04:06.567Z
+                at 2023-01-24T11:32:54.850Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

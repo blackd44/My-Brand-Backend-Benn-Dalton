@@ -128,7 +128,7 @@ describe('\ntesting users routes', () => {
             expect(typeof res.body).toBe('object')
         })
 
-        test('should return the deleted user', async () => {
+        test('should return 401 for wrong password', async () => {
             const res = await request(app).delete('/api/users/' + email).set({
                 Authorization: 'Bearer ' + delToken
             }).send({
