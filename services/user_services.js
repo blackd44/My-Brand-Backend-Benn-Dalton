@@ -1,4 +1,8 @@
 import { User, validate as Validate_User } from "../models/user_model.js";
+import bcrypt from "bcrypt"
+
+let saltRounds = parseInt(process.env.SALTROUNDS)
+const salt = bcrypt.genSaltSync(saltRounds);
 
 export default class UserServices {
     static async login(data) {
@@ -8,7 +12,7 @@ export default class UserServices {
                 return await { error: { message: "bad request" } }
             else {
                 const check = await User.findOne({ email: email })
-                if (check == null || check.password != password)
+                if (check == null || !(await bcrypt.compare(password, check.password)))
                     return { info: { message: "email or password is incorrect" } }
                 else
                     return { baby: check }
@@ -24,7 +28,7 @@ export default class UserServices {
         try {
             const { email, username, password } = data
 
-            const { error, value } = await Validate_User({ email, username, password })
+            let { error, value } = await Validate_User({ email, username, password })
             if (error)
                 return { error }
 
@@ -32,6 +36,9 @@ export default class UserServices {
             if (check !== null)
                 return { error: { message: "username exist" } }
 
+            const hash = await bcrypt.hashSync(value.password, salt)
+
+            value.password = hash
             const baby = await User.create(value)
 
             return { error: undefined, baby }
@@ -86,9 +93,14 @@ export default class UserServices {
                 if (["_id", "email", "createdAt"].includes(key) && data[key] != check[key]) {
                     return { error: { message: `${key} can't be changed` } }
                 }
+                else if (key == 'password') check[key] = await bcrypt.hashSync(data.password, salt)
                 else check[key] = data[key]
             }
-            const { error } = await Validate_User({ email: check.email, username: check.username, password: check.password })
+            const { error } = await Validate_User({
+                email: check.email,
+                username: check.username,
+                password: (data.password || 'Strong@Pass.123')
+            })
             if (error)
                 return { error }
             else {
@@ -116,7 +128,7 @@ export default class UserServices {
             if (check == null)
                 return { error: { message: "user not found" } }
 
-            if (check.password !== password)
+            if (!(await bcrypt.compare(password, check.password)))
                 return { info: { message: "not authorized" } }
 
             const deleted = await User.findByIdAndDelete(check._id)
@@ -145,7 +157,7 @@ export default class UserServices {
             if (check == null)
                 return { error: { message: "user not found" } }
 
-            if (check.password !== password)
+            if (!(await bcrypt.compare(password, check.password)))
                 return { info: { message: "not authorized" } }
 
             const old = await User.findOne({ email: params.email })
