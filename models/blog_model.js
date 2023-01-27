@@ -12,14 +12,20 @@ const ownerSchema = new Schema({
 }, { _id: false })
 
 const commentSchema = new Schema({
-    owner: ownerSchema,
+    owner: {
+        type: ownerSchema,
+        unmodifiable: true
+    },
     message: {
         type: String,
         min: 5,
         require: true,
     },
     replies: [{
-        owner: ownerSchema,
+        owner: {
+            type: ownerSchema,
+            unmodifiable: true
+        },
         message: {
             type: String,
             min: 5,
@@ -37,7 +43,10 @@ const blogSchema = new Schema({
         type: String,
         required: true,
     },
-    owner: ownerSchema,
+    owner: {
+        type: ownerSchema,
+        unmodifiable: true
+    },
     content: {
         type: String,
         required: true,

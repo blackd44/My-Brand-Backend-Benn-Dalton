@@ -7,7 +7,7 @@ export default class BlogServices {
     static async getBlogs() {
         try {
             let blogs = await Blog.find({})
-            return blogs
+            return { blogs }
         }
         catch (e) {
             console.log(e)
@@ -58,6 +58,41 @@ export default class BlogServices {
 
             let baby = await Blog.create(value)
             return { baby }
+        }
+        catch (e) {
+            console.log(e)
+            return { error: e }
+        }
+    }
+
+    static async updateBlog(data, O) {
+        try {
+            const { username } = O
+            const { body, params: { id } } = data
+            let user = await User.findOne({ username }).select('username email')
+            if (!user)
+                return { info: "not found authorized" }
+
+            let old = await Blog.findById(ObjectId(id))
+            if (old == null)
+                return { error: "not found" }
+            /*
+            if(old.owner.email != user.email)
+                return { info: "not found authorized" }
+            */
+
+            for (let key in body) {
+                if (["_id", "owner", "createdAt"].includes(key) && old[key] != body[key])
+                    return { info: { message: `"${key}" can't be changed` } }
+                else old[key] = body[key]
+            }
+
+            let { title, owner: { username: name, email }, comments, image, content } = old
+            let { error, value: baby } = await Validate_Blog({ title, owner: { username: name, email }, comments, image, content })
+            if (error)
+                return { info: error }
+            await old.save()
+            return { baby: old }
         }
         catch (e) {
             console.log(e)
