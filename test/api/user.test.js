@@ -84,7 +84,7 @@ describe('\ntesting users routes', () => {
             const res = await request(app).get('/api/users/user').set({
                 Authorization: 'Bearer ' + invalid
             })
-            expect(res.statusCode).toBe(500)
+            expect(res.statusCode).toBe(403)
         })
     })
 
@@ -186,7 +186,7 @@ describe('\ntesting users routes', () => {
             }).send({
                 profile: "https://images.unsplash.com/photo-1628155930542-3c7a64e2c833?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80secondemail@email.com"
             })
-            expect(res.statusCode).toBe(500)
+            expect(res.statusCode).toBe(403)
             expect(typeof res.body).toBe('object')
         })
 
