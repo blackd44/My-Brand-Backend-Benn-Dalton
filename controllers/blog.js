@@ -37,7 +37,7 @@ export default class Blogs {
             else if (error)
                 res.status(204).json({ message: 'no content found' })
             else
-                res.status(200).json(blog)
+                res.status(202).json(blog)
         }
         catch (e) {
             console.log(e)
@@ -48,11 +48,13 @@ export default class Blogs {
     static async postBlog(req, res) {
         try {
             let { body, user } = req
-            let { error, baby } = await BlogServices.postBlog({ body, user })
+            let { error, baby, info } = await BlogServices.postBlog({ body, user })
+            if (info)
+                res.status(401).json({ error: info })
             if (error)
                 res.status(400).json({ error })
             else
-                res.status(200).json(baby)
+                res.status(202).json(baby)
         }
         catch (e) {
             console.log(e)
@@ -68,7 +70,7 @@ export default class Blogs {
             else if (error)
                 res.status(204).json({ message: 'no content found' })
             else
-                res.status(200).json(baby)
+                res.status(202).json(baby)
         }
         catch (e) {
             console.log(e)

@@ -10,7 +10,7 @@ export default class BlogServices {
             return { blogs }
         }
         catch (e) {
-            console.log(e)
+            console.log({ error: e.message })
             return { error: e }
         }
     }
@@ -23,7 +23,7 @@ export default class BlogServices {
             return { blog }
         }
         catch (e) {
-            console.log(e)
+            console.log({ error: e.message })
             return { error: e }
         }
     }
@@ -39,7 +39,7 @@ export default class BlogServices {
             return { blog }
         }
         catch (e) {
-            console.log(e)
+            console.log({ error: e.message })
             return { error: e }
         }
     }
@@ -50,7 +50,7 @@ export default class BlogServices {
             const { content, image, title } = body
             let user = await User.findOne({ username })
             if (!user)
-                return { error: { message: "user not found" } }
+                return { info: { message: "user not found" } }
 
             let { error, value } = await Validate_Blog({ owner: { email: user.email, username: user.username }, content, image, title })
             if (error)
@@ -60,7 +60,7 @@ export default class BlogServices {
             return { baby }
         }
         catch (e) {
-            console.log(e)
+            console.log({ error: e.message })
             return { error: e }
         }
     }
@@ -95,7 +95,7 @@ export default class BlogServices {
             return { baby: old }
         }
         catch (e) {
-            console.log(e)
+            console.log({ error: e.message })
             return { error: e }
         }
     }
