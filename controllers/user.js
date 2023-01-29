@@ -47,7 +47,7 @@ export default class Users {
             if (error)
                 res.status(204).json({ error })
             else {
-                res.status(200).json({ username: user.username, email: user.email })
+                res.status(200).json(user)
             }
         }
         catch (e) {
@@ -63,7 +63,23 @@ export default class Users {
             if (error)
                 res.status(401).json({ error })
             else {
-                res.status(200).json({ username: user.username, email: user.email })
+                res.status(200).json(user)
+            }
+        }
+        catch (e) {
+            console.log(e)
+            res.status(500).json(e)
+        }
+    }
+
+    static async getAll(req, res) {
+        try {
+            const { error, users } = await UserServices.getAllUser(req.user)
+
+            if (error)
+                res.status(401).json({ error })
+            else {
+                res.status(200).json(users)
             }
         }
         catch (e) {
