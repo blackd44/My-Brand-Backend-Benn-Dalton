@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">76.47% </span>
+                <span class="strong">81.37% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>78/102</span>
+                <span class='fraction'>83/102</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.57% </span>
+                <span class="strong">83.92% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>44/56</span>
+                <span class='fraction'>47/56</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.5% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>7/8</span>
+                <span class='fraction'>8/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">76.23% </span>
+                <span class="strong">81.18% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>77/101</span>
+                <span class='fraction'>82/101</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -331,14 +331,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -493,7 +493,7 @@ export default class UserServices {
 &nbsp;
     static async getSingleUser(email) {
         try {
-            const check = await User.findOne({ email: email }).select('username email profile')
+            const check = await User.findOne({ email: email }).select('username email profile -_id')
             if (check == null)
                 return { error: { message: "user not found" } }
 &nbsp;
@@ -508,7 +508,7 @@ export default class UserServices {
         try {
             const { username } = data
 &nbsp;
-            const check = await User.findOne({ username: username }).select('username email profile')
+            const check = await User.findOne({ username: username }).select('username email profile -_id')
             <span class="missing-if-branch" title="if path not taken" >I</span>if (check == null)
 <span class="cstat-no" title="statement not covered" >                return { error: { message: "user not found" } }</span>
 &nbsp;
@@ -519,15 +519,15 @@ export default class UserServices {
         }
     }
 &nbsp;
-<span class="fstat-no" title="function not covered" >    st</span>atic async getAllUser(data) {
-<span class="cstat-no" title="statement not covered" >        try {</span>
-            const { username } = <span class="cstat-no" title="statement not covered" >data</span>
+    static async getAllUser(data) {
+        try {
+            const { username } = data
 &nbsp;
-            const check = <span class="cstat-no" title="statement not covered" >await User.find().select('username email profile')</span>
-<span class="cstat-no" title="statement not covered" >            if (check == null || check.length == 0)</span>
+            const check = await User.find().select('username email profile -_id')
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (check == null || check.length == 0)
 <span class="cstat-no" title="statement not covered" >                return { error: { message: "no user found" } }</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >            return { users: check }</span>
+            return { users: check }
         }
         catch (e) {
 <span class="cstat-no" title="statement not covered" >            console.log(e)</span>
@@ -637,7 +637,7 @@ export default class UserServices {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-01-29T09:55:20.562Z
+                at 2023-01-29T10:25:02.683Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

@@ -88,6 +88,21 @@ describe('\ntesting users routes', () => {
         })
     })
 
+    describe('GET api/users', () => {
+        test('should return all users info', async () => {
+            const res = await request(app).get('/api/users/').set({
+                Authorization: 'Bearer ' + token
+            })
+            expect(res.statusCode).toBe(200)
+            expect(Array.isArray(res.body)).toBe(true)
+        })
+
+        test('should return 401 for not being authorized', async () => {
+            const res = await request(app).get('/api/users/')
+            expect(res.statusCode).toBe(401)
+        })
+    })
+
     describe('GET api/users/:email', () => {
         test('should return user info', async () => {
             let email = 'email@test.com'
