@@ -6,7 +6,7 @@ let ObjectId = mongoose.Types.ObjectId
 export default class BlogServices {
     static async getBlogs() {
         try {
-            let blogs = await Blog.find({})
+            let blogs = await Blog.find({}).populate('owner', 'username email profile -_id').select('-comments -__v')
             return { blogs }
         }
         catch (e) {
@@ -17,7 +17,7 @@ export default class BlogServices {
 
     static async getSingleBlog(id) {
         try {
-            let blog = await Blog.findById(ObjectId(id))
+            let blog = await Blog.findById(ObjectId(id)).populate('owner', 'username email profile -_id').select('-comments -__v')
             if (blog == null)
                 return { error: "not found" }
             return { blog }
@@ -33,7 +33,7 @@ export default class BlogServices {
             if (!user)
                 return { info: "user not found" }
 
-            let blog = await Blog.findByIdAndDelete(ObjectId(id))
+            let blog = await Blog.findByIdAndDelete(ObjectId(id)).populate('owner', 'username email profile -_id').select('-comments -__v')
             if (blog == null)
                 return { error: "not found" }
             return { blog }
@@ -52,11 +52,11 @@ export default class BlogServices {
             if (!user)
                 return { info: { message: "user not found" } }
 
-            let { error, value } = await Validate_Blog({ owner: { email: user.email, username: user.username }, content, image, title })
+            let { error, value } = await Validate_Blog({ owner: (user._id + ''), content, image, title })
             if (error)
                 return { error }
 
-            let baby = await Blog.create(value)
+            let baby = await (await Blog.create(value)).populate('owner', 'username email profile -_id')
             return { baby }
         }
         catch (e) {
@@ -69,11 +69,11 @@ export default class BlogServices {
         try {
             const { username } = O
             const { body, params: { id } } = data
-            let user = await User.findOne({ username }).select('username email')
+            let user = await User.findOne({ username }).select('username email -_id')
             if (!user)
                 return { info: "not found authorized" }
 
-            let old = await Blog.findById(ObjectId(id))
+            let old = await Blog.findById(ObjectId(id)).select('-comments')
             if (old == null)
                 return { error: "not found" }
             /*
@@ -87,11 +87,11 @@ export default class BlogServices {
                 else old[key] = body[key]
             }
 
-            let { title, owner: { username: name, email }, comments, image, content } = old
-            let { error, value: baby } = await Validate_Blog({ title, owner: { username: name, email }, comments, image, content })
+            let { title, owner, comments, image, content } = old
+            let { error, value } = await Validate_Blog({ title, owner: (owner + ''), comments, image, content })
             if (error)
                 return { info: error }
-            await old.save()
+            await (await old.save()).populate('owner', 'username email profile -_id')
             return { baby: old }
         }
         catch (e) {
