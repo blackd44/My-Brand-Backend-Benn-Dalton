@@ -127,10 +127,10 @@
  *              type: string
  *              format: objectId
  *       responses:
- *         '200':
+ *         '202':
  *           description: successful operation
- *         '400':
- *           description: Bad request
+ *         '204':
+ *           description: no content found
  *         '401':
  *           description: Unauthorized
  *         '500':

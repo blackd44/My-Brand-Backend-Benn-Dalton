@@ -1,31 +1,5 @@
 import { Schema, model } from "mongoose";
 import validate from "../validations/blog_validator.js";
-import Validate_Comment from "../validations/comment_validator.js";
-
-const commentSchema = new Schema({
-    owner: {
-        type: Schema.Types.ObjectId,
-        ref: 'user',
-        unmodifiable: true
-    },
-    message: {
-        type: String,
-        min: 5,
-        require: true,
-    },
-    replies: [{
-        owner: {
-            type: Schema.Types.ObjectId,
-            ref: 'user',
-            unmodifiable: true
-        },
-        message: {
-            type: String,
-            min: 5,
-            require: true,
-        },
-    }]
-}, { timestamps: true })
 
 const blogSchema = new Schema({
     title: {
@@ -45,9 +19,15 @@ const blogSchema = new Schema({
         type: String,
         required: true,
     },
-    comments: [commentSchema]
+    comments: [{
+        type: Schema.Types.ObjectId,
+        ref: 'comment'
+    }],
+    likes: [{
+        type: Schema.Types.ObjectId,
+        ref: 'user'
+    }],
 }, { timestamps: true })
 
 const Blog = model('blog', blogSchema)
-const Comment = model('comment', commentSchema)
-export { Blog, validate, Comment, Validate_Comment }
+export { Blog, validate }
