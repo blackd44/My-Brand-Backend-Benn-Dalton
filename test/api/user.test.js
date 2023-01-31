@@ -84,7 +84,22 @@ describe('\ntesting users routes', () => {
             const res = await request(app).get('/api/users/user').set({
                 Authorization: 'Bearer ' + invalid
             })
-            expect(res.statusCode).toBe(500)
+            expect(res.statusCode).toBe(403)
+        })
+    })
+
+    describe('GET api/users', () => {
+        test('should return all users info', async () => {
+            const res = await request(app).get('/api/users/').set({
+                Authorization: 'Bearer ' + token
+            })
+            expect(res.statusCode).toBe(200)
+            expect(Array.isArray(res.body)).toBe(true)
+        })
+
+        test('should return 401 for not being authorized', async () => {
+            const res = await request(app).get('/api/users/')
+            expect(res.statusCode).toBe(401)
         })
     })
 
@@ -128,7 +143,7 @@ describe('\ntesting users routes', () => {
             expect(typeof res.body).toBe('object')
         })
 
-        test('should return the deleted user', async () => {
+        test('should return 401 for wrong password', async () => {
             const res = await request(app).delete('/api/users/' + email).set({
                 Authorization: 'Bearer ' + delToken
             }).send({
@@ -186,7 +201,7 @@ describe('\ntesting users routes', () => {
             }).send({
                 profile: "https://images.unsplash.com/photo-1628155930542-3c7a64e2c833?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80secondemail@email.com"
             })
-            expect(res.statusCode).toBe(500)
+            expect(res.statusCode).toBe(403)
             expect(typeof res.body).toBe('object')
         })
 
