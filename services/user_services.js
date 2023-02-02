@@ -120,7 +120,7 @@ export default class UserServices {
                 return { error }
             else {
                 check.save()
-                return { user: check, error: undefined }
+                return { user: { username: check.username, email: check.email, profile: check.profile }, error: undefined }
             }
         }
         catch (e) {
