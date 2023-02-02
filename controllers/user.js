@@ -7,7 +7,7 @@ export default class Users {
             const jwtSecret = process.env.JWT_SECRET
             let { error, baby } = await UserServices.createAccout(req.body)
             if (error)
-                res.status(400).json({ error })
+                res.status(400).json({ error, message: error.message })
             else {
                 const { username } = baby
                 const token = await jwt.sign({ username }, jwtSecret)

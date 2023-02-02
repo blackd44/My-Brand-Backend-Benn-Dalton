@@ -37,7 +37,7 @@
  *                              example: swagger test blog
  *              
  *       responses:
- *         '200':
+ *         '202':
  *           description: successful operation
  *         '400':
  *           description: Bad request
