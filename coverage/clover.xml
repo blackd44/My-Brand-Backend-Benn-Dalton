@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1675238970746" clover="3.2.0">
-  <project timestamp="1675238970746" name="All files">
+<coverage generated="1675341966066" clover="3.2.0">
+  <project timestamp="1675341966067" name="All files">
     <metrics statements="465" coveredstatements="335" conditionals="163" coveredconditionals="123" methods="52" coveredmethods="43" elements="680" coveredelements="501" complexity="0" loc="465" ncloc="465" packages="8" files="24" classes="24"/>
     <package name="My-Brand-Backend-Benn-Dalton">
       <metrics statements="17" coveredstatements="16" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="2"/>
