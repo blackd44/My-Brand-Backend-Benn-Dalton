@@ -78,13 +78,13 @@ describe("\ntesting blogs routes", () => {
     })
 
     describe("GET api/blogs/:id", () => {
-        test('Should return the updated Blog', async () => {
+        test('Should return the no content Blog', async () => {
             let wrongId = blogId.substring(0, blogId.length - 2)
             const res = await request(app).get('/api/blogs/' + wrongId)
             expect(res.status).toBe(204)
         })
 
-        test('Should return the updated Blog', async () => {
+        test('Should return the Blog', async () => {
             const res = await request(app).get('/api/blogs/' + blogId)
             expect(res.status).toBe(200)
             expect(typeof res.body).toBe('object')
