@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">36.84% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/19</span>
+                <span class='fraction'>7/19</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">25% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>1/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">66.66% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>2/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">36.84% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/19</span>
+                <span class='fraction'>7/19</span>
             </div>
         
             
@@ -108,9 +108,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -119,12 +119,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -148,10 +148,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import Comment from "../services/comment_services.js"
 &nbsp;
 export default class Comments {
-<span class="fstat-no" title="function not covered" >    st</span>atic async getAll(req, res) {
-<span class="cstat-no" title="statement not covered" >        try {</span>
-            let comments = <span class="cstat-no" title="statement not covered" >await Comment.getAll(req.params.blogId)</span>
-<span class="cstat-no" title="statement not covered" >            res.status(200).json(comments)</span>
+    static async getAll(req, res) {
+        try {
+            let comments = await Comment.getAll(req.params.blogId)
+            res.status(200).json(comments)
         }
         catch (e) {
 <span class="cstat-no" title="statement not covered" >            console.log(e)</span>
@@ -159,13 +159,13 @@ export default class Comments {
         }
     }
 &nbsp;
-<span class="fstat-no" title="function not covered" >    st</span>atic async postComment(req, res) {
-<span class="cstat-no" title="statement not covered" >        try {</span>
-            let { comment, error } = <span class="cstat-no" title="statement not covered" >await Comment.postComment(req.user, req.params.blogId, req.body)</span>
-<span class="cstat-no" title="statement not covered" >            if (error)</span>
+    static async postComment(req, res) {
+        try {
+            let { comment, error } = await Comment.postComment(req.user, req.params.blogId, req.body)
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (error)
 <span class="cstat-no" title="statement not covered" >                res.status(400).json(error)</span>
             else
-<span class="cstat-no" title="statement not covered" >                res.status(200).json(comment)</span>
+                res.status(200).json(comment)
         }
         catch (e) {
 <span class="cstat-no" title="statement not covered" >            console.log(e)</span>
@@ -193,7 +193,7 @@ export default class Comments {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-02-03T15:25:46.802Z
+                at 2023-02-06T17:04:42.915Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

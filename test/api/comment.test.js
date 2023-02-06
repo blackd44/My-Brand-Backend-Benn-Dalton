@@ -46,10 +46,25 @@ describe('testing all comment routes', () => {
     describe('GET /:blogId/comments/', () => {
         test('should return all comments of a blog', async () => {
             const res = await request(app).get('/api/blogs/' + blogId + '/comments/')
-            console.log(res.body)
             expect(res.status).toBe(200)
             expect(res.body).toHaveProperty('values')
             expect(Array.isArray(res.body.values)).toBe(true)
+        })
+    })
+
+    describe('POST /:blogId/comments/', () => {
+        test('should return the posted comment and all comments of a blog', async () => {
+            const res = await request(app).post('/api/blogs/' + blogId + '/comments/')
+                .set({
+                    Authorization: 'Bearer ' + usertoken
+                })
+                .send({
+                    message: 'testing comment'
+                })
+            expect(res.status).toBe(200)
+            expect(res.body).toHaveProperty('comment')
+            expect(res.body).toHaveProperty('comments')
+            expect(Array.isArray(res.body.comments)).toBe(true)
         })
     })
 });
