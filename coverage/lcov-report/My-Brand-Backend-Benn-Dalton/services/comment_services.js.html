@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">3.7% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/31</span>
+                <span class='fraction'>1/27</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/12</span>
+                <span class='fraction'>0/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">33.33% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>1/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">3.7% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/31</span>
+                <span class='fraction'>1/27</span>
             </div>
         
             
@@ -155,17 +155,13 @@
 <a name='L90'></a><a href='#L90'>90</a>
 <a name='L91'></a><a href='#L91'>91</a>
 <a name='L92'></a><a href='#L92'>92</a>
-<a name='L93'></a><a href='#L93'>93</a>
-<a name='L94'></a><a href='#L94'>94</a>
-<a name='L95'></a><a href='#L95'>95</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L93'></a><a href='#L93'>93</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -180,7 +176,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -189,7 +185,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -220,8 +218,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -256,23 +252,25 @@ import { Comment, Validate_Comment } from "../models/comment_model.js";
 import { User } from "../models/user_model.js";
 &nbsp;
 export default class Comments {
-<span class="fstat-no" title="function not covered" >    st</span>atic async getAll(parentID) {
-        let parent = <span class="cstat-no" title="statement not covered" >await Blog</span>
+    static async getAll(parentID) {
+        let parent = await Blog
             .findById(parentID)
             .select('comments')
             .populate({
                 path: 'comments',
-                populate: {
-                    path: 'owner',
-                    select: '-_id username email profile'
-                },
-                populate: {
-                    path: 'replies',
-                    populate: {
+                populate: [
+                    {
                         path: 'owner',
                         select: '-_id username email profile'
+                    },
+                    {
+                        path: 'replies',
+                        populate: {
+                            path: 'owner',
+                            select: '-_id username email profile'
+                        }
                     }
-                }
+                ]
             })
         let comments = <span class="cstat-no" title="statement not covered" >{</span>
             length: parent.comments.length,
@@ -283,8 +281,6 @@ export default class Comments {
 &nbsp;
 <span class="fstat-no" title="function not covered" >    st</span>atic async postComment(user, parentID, body) {
         let owner = <span class="cstat-no" title="statement not covered" >await User.findOne({ username: user.username }).select('_id')</span>
-<span class="cstat-no" title="statement not covered" >        if (owner == null)</span>
-<span class="cstat-no" title="statement not covered" >            return { error: { message: 'not authorized' } }</span>
 &nbsp;
         let parent = <span class="cstat-no" title="statement not covered" >await Blog.findById(parentID).select('comments')</span>
 <span class="cstat-no" title="statement not covered" >        if (parent == null)</span>
@@ -302,21 +298,19 @@ export default class Comments {
 <span class="cstat-no" title="statement not covered" >        return {</span>
             comment: {
                 comment: await baby.populate('owner', 'username email profile -_id'),
-                comments: await parent.populate({
+                comments: (await parent.populate({
                     path: 'comments',
                     populate: {
                         path: 'owner',
                         select: '-_id username email profile'
                     }
-                })
+                })).comments
             }
         }
     }
 &nbsp;
 <span class="fstat-no" title="function not covered" >    st</span>atic async postReply(user, parentID, body) {
         let owner = <span class="cstat-no" title="statement not covered" >await User.findOne({ username: user.username }).select('_id')</span>
-<span class="cstat-no" title="statement not covered" >        if (owner == null)</span>
-<span class="cstat-no" title="statement not covered" >            return { error: { message: 'not authorized' } }</span>
 &nbsp;
         let parent = <span class="cstat-no" title="statement not covered" >await Comment.findById(parentID).select('replies')</span>
 <span class="cstat-no" title="statement not covered" >        if (parent == null)</span>
@@ -352,7 +346,7 @@ export default class Comments {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-02-02T12:46:05.961Z
+                at 2023-02-07T17:13:07.453Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
