@@ -3,6 +3,7 @@ import app from '../../app.js'
 
 let usertoken = undefined
 let blogId = undefined
+let commentId = undefined
 
 beforeAll(async () => {
     const user = await request(app).post('/api/users/signup').send({
@@ -53,6 +54,16 @@ describe('testing all comment routes', () => {
     })
 
     describe('POST /:blogId/comments/', () => {
+
+        test('should return 400 status for wrong message', async () => {
+            const res = await request(app).post('/api/blogs/' + blogId + '/comments/')
+                .set({
+                    Authorization: 'Bearer ' + usertoken
+                })
+                .send({})
+            expect(res.status).toBe(400)
+        });
+
         test('should return the posted comment and all comments of a blog', async () => {
             const res = await request(app).post('/api/blogs/' + blogId + '/comments/')
                 .set({
@@ -65,6 +76,26 @@ describe('testing all comment routes', () => {
             expect(res.body).toHaveProperty('comment')
             expect(res.body).toHaveProperty('comments')
             expect(Array.isArray(res.body.comments)).toBe(true)
+
+            expect(res.body.comment).toHaveProperty('_id')
+            commentId = res.body.comment._id
+        })
+    })
+
+    describe('POST /:commentId/reply/', () => {
+
+        test('should return the posted reply and all it\'s comment of a comment', async () => {
+            const res = await request(app).post('/api/blogs/' + commentId + '/reply/')
+                .set({
+                    Authorization: 'Bearer ' + usertoken
+                })
+                .send({
+                    message: 'testing reply'
+                })
+            expect(res.status).toBe(200)
+            expect(res.body).toHaveProperty('reply')
+            expect(res.body).toHaveProperty('comment')
+            expect(typeof res.body.comment).toBe('object')
         })
     })
 });

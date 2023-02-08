@@ -9,17 +9,19 @@ export default class Comments {
             .select('comments')
             .populate({
                 path: 'comments',
-                populate: {
-                    path: 'owner',
-                    select: '-_id username email profile'
-                },
-                populate: {
-                    path: 'replies',
-                    populate: {
+                populate: [
+                    {
                         path: 'owner',
                         select: '-_id username email profile'
+                    },
+                    {
+                        path: 'replies',
+                        populate: {
+                            path: 'owner',
+                            select: '-_id username email profile'
+                        }
                     }
-                }
+                ]
             })
         let comments = {
             length: parent.comments.length,
@@ -49,13 +51,13 @@ export default class Comments {
         return {
             comment: {
                 comment: await baby.populate('owner', 'username email profile -_id'),
-                comments: await parent.populate({
+                comments: (await parent.populate({
                     path: 'comments',
                     populate: {
                         path: 'owner',
                         select: '-_id username email profile'
                     }
-                })
+                })).comments
             }
         }
     }

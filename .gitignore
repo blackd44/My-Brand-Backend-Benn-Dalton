@@ -1,5 +1,8 @@
 # node packages
 /node_modules
 
+# coverage
+/coverage
+
 # local variables
 .env
