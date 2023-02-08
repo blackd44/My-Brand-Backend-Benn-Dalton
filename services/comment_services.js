@@ -32,8 +32,6 @@ export default class Comments {
 
     static async postComment(user, parentID, body) {
         let owner = await User.findOne({ username: user.username }).select('_id')
-        if (owner == null)
-            return { error: { message: 'not authorized' } }
 
         let parent = await Blog.findById(parentID).select('comments')
         if (parent == null)
@@ -64,8 +62,6 @@ export default class Comments {
 
     static async postReply(user, parentID, body) {
         let owner = await User.findOne({ username: user.username }).select('_id')
-        if (owner == null)
-            return { error: { message: 'not authorized' } }
 
         let parent = await Comment.findById(parentID).select('replies')
         if (parent == null)
