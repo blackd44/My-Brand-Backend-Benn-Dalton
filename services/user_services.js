@@ -50,7 +50,7 @@ export default class UserServices {
 
     static async getSingleUser(email) {
         try {
-            const check = await User.findOne({ email: email }).select('username email profile -_id')
+            const check = await User.findOne({ email: email }).select('username email profile gender -_id')
             if (check == null)
                 return { error: { message: "user not found" } }
 
@@ -65,7 +65,7 @@ export default class UserServices {
         try {
             const { username } = data
 
-            const check = await User.findOne({ username: username }).select('username email profile -_id')
+            const check = await User.findOne({ username: username }).select('username email profile gender -_id')
             if (check == null)
                 return { error: { message: "user not found" } }
 
@@ -80,7 +80,7 @@ export default class UserServices {
         try {
             const { username } = data
 
-            const check = await User.find().select('username email profile -_id')
+            const check = await User.find().select('username email profile gender -_id')
             if (check == null || check.length == 0)
                 return { error: { message: "no user found" } }
 

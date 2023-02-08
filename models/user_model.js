@@ -13,6 +13,11 @@ const userSchema = new Schema({
         unique: true,
         require: true,
     },
+    gender: {
+        type: String,
+        enum: ['male', 'female', 'both', 'none'],
+        default: 'none'
+    },
     password: {
         type: String,
         require: true,
