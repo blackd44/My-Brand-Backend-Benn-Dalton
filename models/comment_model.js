@@ -15,7 +15,11 @@ const commentSchema = new Schema({
     replies: [{
         type: Schema.Types.ObjectId,
         ref: 'comment'
-    }]
+    }],
+    likes: [{
+        type: Schema.Types.ObjectId,
+        ref: 'user'
+    }],
 }, { timestamps: true })
 
 const Comment = model('comment', commentSchema)

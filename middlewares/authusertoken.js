@@ -17,7 +17,7 @@ export default async function authUserToken(req, res, next) {
         if (err != null) return 403
         else if (user.username == undefined) return 403
         else {
-            let old = await User.findOne({ username: user.username }).select('-_id username email')
+            let old = await User.findOne({ username: user.username }).select('-password')
             if (old == null) return 403
             else {
                 req.user = old
