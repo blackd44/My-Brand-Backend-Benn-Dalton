@@ -18,7 +18,7 @@ export default class Likes {
             message = 'blog unliked'
         }
 
-        await blog.save()
+        await (await blog.save()).populate('likes', '-_id email')
         return { value: { blog, message } }
     }
 
@@ -38,7 +38,7 @@ export default class Likes {
             message = 'comment unliked'
         }
 
-        await comment.save()
+        await (await comment.save()).populate('likes', '-_id email')
         return { value: { comment, message } }
     }
 }

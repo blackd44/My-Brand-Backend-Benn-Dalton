@@ -17,7 +17,16 @@ export default class BlogServices {
 
     static async getSingleBlog(id) {
         try {
-            let blog = await Blog.findById(ObjectId(id)).populate('owner', 'username email profile -_id').select('-comments -__v')
+            let blog = await Blog.findById(ObjectId(id)).populate([
+                {
+                    path: 'owner', 
+                    select: 'username email profile -_id'
+                },
+                {
+                    path: 'likes',
+                    select: '-_id email'
+                }
+            ]).select('-comments -__v')
             if (blog == null)
                 return { error: "not found" }
             return { blog }
@@ -33,7 +42,16 @@ export default class BlogServices {
             if (!user)
                 return { info: "user not found" }
 
-            let blog = await Blog.findByIdAndDelete(ObjectId(id)).populate('owner', 'username email profile -_id').select('-comments -__v')
+            let blog = await Blog.findByIdAndDelete(ObjectId(id)).populate([
+                {
+                    path: 'owner', 
+                    select: 'username email profile -_id'
+                },
+                {
+                    path: 'likes',
+                    select: '-_id email'
+                }
+            ]).select('-comments -__v')
             if (blog == null)
                 return { error: "not found" }
             return { blog }
@@ -56,7 +74,16 @@ export default class BlogServices {
             if (error)
                 return { error }
 
-            let baby = await (await Blog.create(value)).populate('owner', 'username email profile -_id')
+            let baby = await (await Blog.create(value)).populate([
+                {
+                    path: 'owner', 
+                    select: 'username email profile -_id'
+                },
+                {
+                    path: 'likes',
+                    select: '-_id email'
+                }
+            ])
             return { baby }
         }
         catch (e) {
@@ -91,7 +118,16 @@ export default class BlogServices {
             let { error, value } = await Validate_Blog({ title, owner: (owner + ''), comments, image, content })
             if (error)
                 return { info: error }
-            await (await old.save()).populate('owner', 'username email profile -_id')
+            await (await old.save()).populate([
+                {
+                    path: 'owner', 
+                    select: 'username email profile -_id'
+                },
+                {
+                    path: 'likes',
+                    select: '-_id email'
+                }
+            ])
             return { baby: old }
         }
         catch (e) {

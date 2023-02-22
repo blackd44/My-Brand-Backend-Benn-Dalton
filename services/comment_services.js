@@ -15,6 +15,10 @@ export default class Comments {
                         select: '-_id username email profile'
                     },
                     {
+                        path: 'likes',
+                        select: '-_id email'
+                    },
+                    {
                         path: 'replies',
                         populate: {
                             path: 'owner',
@@ -82,10 +86,15 @@ export default class Comments {
                 reply: await baby.populate('owner', 'username email profile -_id'),
                 comment: await parent.populate({
                     path: 'replies',
-                    populate: {
-                        path: 'owner',
-                        select: '-_id username email profile'
-                    }
+                    populate: [
+                        {
+                            path: 'owner',
+                            select: '-_id username email profile'
+                        },{
+                            path: 'likes',
+                            select: '-_id email'
+                        }
+                    ]
                 })
             }
         }
